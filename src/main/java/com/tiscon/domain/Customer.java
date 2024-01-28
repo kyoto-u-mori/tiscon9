@@ -20,9 +20,9 @@ public class Customer implements Serializable {
 
     private String newAddress;
 
-    public int getCustomerId() {
-        return customerId;
-    }
+    // public int getCustomerId() {
+    //     return customerId;
+    // }
 
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
@@ -82,5 +82,9 @@ public class Customer implements Serializable {
 
     public void setNewAddress(String newAddress) {
         this.newAddress = newAddress;
+    }
+    //追加
+    public Integer getCustomerId() {
+        return customerId != null ? customerId : 0;
     }
 }

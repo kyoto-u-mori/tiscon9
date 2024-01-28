@@ -36,14 +36,40 @@ public class EstimateDao {
      * @param customer 顧客情報
      * @return 登録件数
      */
-    public int insertCustomer(Customer customer) {
-        String sql = "INSERT INTO CUSTOMER(OLD_PREFECTURE_ID, NEW_PREFECTURE_ID, CUSTOMER_NAME, TEL, EMAIL, OLD_ADDRESS, NEW_ADDRESS)"
+    // public int insertCustomer(Customer customer) {
+    //     String sql = "INSERT INTO CUSTOMER(OLD_PREFECTURE_ID, NEW_PREFECTURE_ID, CUSTOMER_NAME, TEL, EMAIL, OLD_ADDRESS, NEW_ADDRESS)"
+    //             + " VALUES(:oldPrefectureId, :newPrefectureId, :customerName, :tel, :email, :oldAddress, :newAddress)";
+    //     KeyHolder keyHolder = new GeneratedKeyHolder();
+    //     int resultNum = parameterJdbcTemplate.update(sql, new BeanPropertySqlParameterSource(customer), keyHolder);
+    //     customer.setCustomerId(keyHolder.getKey().intValue());
+    //     return resultNum;
+    // }
+    
+    /**
+ * 顧客テーブルに登録する。既に同じTELまたはEMAILが存在する場合は登録を行わない。
+ *
+ * @param customer 顧客情報
+ * @return 登録件数
+ */
+ public int insertCustomer(Customer customer) {
+    // 既存のTELまたはEMAILが存在するか確認
+    String selectSql = "SELECT COUNT(*) FROM CUSTOMER WHERE TEL = :tel OR EMAIL = :email";
+    SqlParameterSource selectParamSource = new BeanPropertySqlParameterSource(customer);
+    int existingCount = parameterJdbcTemplate.queryForObject(selectSql, selectParamSource, Integer.class);
+    if (existingCount > 0) {
+        // 既に同じTELまたはEMAILが存在する場合は登録を行わない
+        return 0;
+    } else {
+        // 存在しない場合は新規登録
+        String insertSql = "INSERT INTO CUSTOMER(OLD_PREFECTURE_ID, NEW_PREFECTURE_ID, CUSTOMER_NAME, TEL, EMAIL, OLD_ADDRESS, NEW_ADDRESS)"
                 + " VALUES(:oldPrefectureId, :newPrefectureId, :customerName, :tel, :email, :oldAddress, :newAddress)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        int resultNum = parameterJdbcTemplate.update(sql, new BeanPropertySqlParameterSource(customer), keyHolder);
+        int resultNum = parameterJdbcTemplate.update(insertSql, new BeanPropertySqlParameterSource(customer), keyHolder);
         customer.setCustomerId(keyHolder.getKey().intValue());
         return resultNum;
     }
+ }
+ 
 
     /**
      * オプションサービス_顧客テーブルに登録する。
