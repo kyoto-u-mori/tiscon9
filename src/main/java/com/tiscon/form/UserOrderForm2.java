@@ -15,11 +15,11 @@ public class UserOrderForm2 {
     @NotBlank
     private String box;
 
-    public String setBox() {
+    public String getBox() {
         return box;
     }
 
-    public void getBox(String box) {
+    public void setBox(String box) {
         this.box = box;
     }
 

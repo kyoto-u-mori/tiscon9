@@ -65,8 +65,8 @@ public class EstimateController {
      */
     @GetMapping("box")
     String box(Model model) {
-        if (!model.containsAttribute("userOrderForm")) {
-            model.addAttribute("userOrderForm", new UserOrderForm());
+        if (!model.containsAttribute("userOrderForm2")) {
+            model.addAttribute("userOrderForm2", new UserOrderForm2());
         }
 
         model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
@@ -80,7 +80,7 @@ public class EstimateController {
      * @param model         遷移先に連携するデータ
      * @return 遷移先
      */
-    @PostMapping(value = "order", params = "boxcomplete")
+    @PostMapping(value = "submit", params = "boxcomplete")
     String boxcomplete(@Validated UserOrderForm2 userOrderForm2, BindingResult box, Model model) {
         if (box.hasErrors()) {
 

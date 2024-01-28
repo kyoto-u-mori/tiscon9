@@ -13,7 +13,7 @@
 <body>
 <nav th:insert="header.html :: header"></nav>
 <div class="container">
-    <form th:action="@{/submit}" th:object="${userOrderForm}" class="form-horizontal" method="post">
+    <form th:action="@{/submit}" th:object="${userOrderForm2}" class="form-horizontal" method="post">
      <div class="progress-icon">
      <img src="../img/progress_input.svg" />
         </div>
@@ -35,7 +35,8 @@
         <div class="form-group">
           <div class="text-center">
             <button type="submit" name="backToTop" class="btn-back">TOPへ戻る</button>
-            <a class="btn btn-primary" th:href="@{/boxcomplete}" role="button">送信</a>
+            <button type="submit" name="boxcomplete" class="btn btn-primary">送信</button>
+            <!-- <a class="btn btn-primary" th:href="@{/boxcomplete}" role="button">送信</a> -->
           </div>
         </div>
        </div>
