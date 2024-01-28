@@ -6,6 +6,10 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+//追加
+//import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+
 /**
  * 顧客が入力する見積もり情報を保持するクラス。
  *
@@ -29,6 +33,12 @@ public class UserOrderForm {
 
     @NotBlank
     private String oldAddress;
+    
+    //追加
+    @NotBlank(message = "引越し月を選択してください")
+    private String movingMonth;
+    // @NotBlank(message = "{NotBlank.userOrderForm.movingDate}")
+    // private String movingDateStr;  // 新しいフィールドを追加
 
     @NotBlank
     private String newPrefectureId;
@@ -78,6 +88,15 @@ public class UserOrderForm {
     public void setEmail(String email) {
         this.email = email;
     }
+    //追加
+    public String getMovingMonth() {
+        return movingMonth;
+    }
+
+    public void setMovingMonth(String movingMonth) {
+        this.movingMonth = movingMonth;
+    }
+    //
 
     public String getOldPrefectureId() {
         return oldPrefectureId;

@@ -89,6 +89,13 @@
           </select>
         </div>
       </fieldset>
+      <fieldset>
+      <div class="sub-title">引っ越し日時</div>
+        <div class="form-group">
+          <label for="movingMonth">引越し月</label>
+          <input type="number" id="movingMonth" name="movingMonth" th:field="*{movingMonth}" class="form-control" min="1" max="12" />
+        </div>
+      </fieldset>
       <div class="form-group">
         <div class="text-center">
           <button type="submit" name="backToTop" class="btn-back">TOPへ戻る</button>
