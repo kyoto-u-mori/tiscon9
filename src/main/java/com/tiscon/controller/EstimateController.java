@@ -3,6 +3,7 @@ package com.tiscon.controller;
 import com.tiscon.dao.EstimateDao;
 import com.tiscon.dto.UserOrderDto;
 import com.tiscon.form.UserOrderForm;
+import com.tiscon.form.UserOrderForm2;
 import com.tiscon.service.EstimateService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
@@ -55,6 +56,42 @@ public class EstimateController {
         model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
         return "input";
     }
+
+    /**
+     *　取り寄せ画面に遷移する。
+     *
+     * @param model 遷移先に連携するデータ
+     * @return 遷移先
+     */
+    @GetMapping("box")
+    String box(Model model) {
+        if (!model.containsAttribute("userOrderForm")) {
+            model.addAttribute("userOrderForm", new UserOrderForm());
+        }
+
+        model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
+        return "box";
+    }
+    /**
+     * 取り寄せ完了画面に遷移する。
+     *
+     * @param userOrderForm2 顧客が入力した見積もり依頼情報
+     * @param box        段ボール
+     * @param model         遷移先に連携するデータ
+     * @return 遷移先
+     */
+    @PostMapping(value = "order", params = "boxcomplete")
+    String boxcomplete(@Validated UserOrderForm2 userOrderForm2, BindingResult box, Model model) {
+        if (box.hasErrors()) {
+
+            model.addAttribute("userOrderForm2", userOrderForm2);
+            return "confirm";
+        }
+
+
+        return "boxcomplete";
+    }
+
 
     /**
      * TOP画面に戻る。
