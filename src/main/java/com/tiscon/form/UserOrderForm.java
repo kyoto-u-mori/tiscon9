@@ -35,7 +35,7 @@ public class UserOrderForm {
     private String oldAddress;
     
     //追加
-    @NotBlank(message = "引越し月を選択してください")
+    @NotBlank
     private String movingMonth;
     // @NotBlank(message = "{NotBlank.userOrderForm.movingDate}")
     // private String movingDateStr;  // 新しいフィールドを追加
